@@ -1,6 +1,6 @@
 {
   "name": "datepickerfromscratch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a custom date picker for React and TypeScript",
   "type": "module",
   "main": "dist/index.js",
@@ -46,6 +46,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Teddy1792/DatePicker.git"
+    "url": "git+https://github.com/Teddy1792/DatePicker.git"
   }
 }
