@@ -8421,7 +8421,7 @@ const Zi = ({ items: e, style: t, initialDefaultValue: r, onChange: a, value: n 
       ...l,
       border: "none",
       boxShadow: "none",
-      width: "189px"
+      width: "110px"
     }),
     menu: (l) => ({
       ...l,
