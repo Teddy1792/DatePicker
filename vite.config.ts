@@ -7,8 +7,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "lib/main.js"),
-      name: "library",
-      fileName: "library",
+      name: "DatePickerFromScratch",
+      fileName: (format) => `datepickerfromscratch.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react-dom"],
