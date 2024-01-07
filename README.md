@@ -18,7 +18,7 @@ Import the DatePicker component and its stylesheet in your React application:
   import { useState } from 'react';
   import { DatePicker } from 'datepickerfromscratch';
   import 'datepickerfromscratch/style.css';
-````
+```
 
 Example usage in a component:
 

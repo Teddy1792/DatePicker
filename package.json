@@ -1,6 +1,6 @@
 {
   "name": "datepickerfromscratch",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "private": false,
   "type": "module",
   "description": "The datepickerfromscratch is a custom date picker built for React applications using TypeScript.",
@@ -13,18 +13,24 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-docs": "typedoc --out docs"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
@@ -34,11 +40,10 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
+    "jsdoc": "^4.0.2",
     "react-select": "^5.8.0",
     "sass": "^1.69.6",
+    "typedoc": "^0.25.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.8"
   },
@@ -61,4 +66,3 @@
   ],
   "license": "MIT"
 }
-
