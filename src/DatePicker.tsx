@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight, faHouse } from '@fortawesome/free-solid-svg-icons';
 import CustomSelect from './CustomSelect';
 import './styles/DatePicker.scss';
 
-interface DatePickerProps {
+export interface DatePickerProps {
   id: string;
   selectedDate: Date | null;
   onChange: (date: Date | null) => void;
@@ -14,11 +14,12 @@ interface DatePickerProps {
 /**
  * DatePicker component for selecting dates in "YYYY-MM-DD" format.
  *
- * @param {Object} props - The component's props.
- * @param {string} props.id - The ID of the input element.
- * @param {Date | null} props.selectedDate - The currently selected date.
- * @param {function} props.onChange - A function to be called when the selected date changes.
- * @param {function} props.onFormInputChange - A function to be called when the input value changes.
+ * @remarks
+ * The component's props include:
+ * - `id`: The ID of the input element.
+ * - `selectedDate`: The currently selected date.
+ * - `onChange`: A function to be called when the selected date changes.
+ * - `onFormInputChange`: A function to be called when the input value changes.
  */
 const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onFormInputChange }) => {
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -43,11 +44,10 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
   const [isValidDate, setIsValidDate] = useState(true);
   const [isDatePickerOpening, setIsDatePickerOpening] = useState(false);
 
-  /**
-   * Helper function to format a date into "YYYY-MM-DD" format.
-   *
-   * @param {Date} date - The date to format.
-   * @returns {string} The formatted date string.
+  /*
+   * Formats a date into "YYYY-MM-DD" format.
+   * @param date - The date to format.
+   * @returns The formatted date string.
    */
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
@@ -56,17 +56,16 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     return `${year}-${month}-${day}`;
   };
 
-  /**
+  /*
    * Handles input change, formats input value, and validates the date.
-   *
-   * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+   * The input change event.
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
 
     // Remove any non-digit characters except "-"
     inputValue = inputValue.replace(/[^\d-]/g, '');
-  
+
     // Count the number of "-" characters
     const dashCount = (inputValue.match(/-/g) || []).length;
 
@@ -82,7 +81,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     }
     try {
       const parsedDate = new Date(inputValue);
-  
+
       // Check if the parsed date is not NaN and is in the ISO format
       if (!isNaN(parsedDate.getTime()) && inputValue === parsedDate.toISOString().slice(0, 10)) {
         setIsValidDate(true);
@@ -96,7 +95,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     }
   };
 
-  /**
+  /*
    * Opens the date picker dropdown.
    */
   const handleDatePickerOpen = () => {
@@ -104,7 +103,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     setIsDatePickerOpening(true);
   };
 
-  /**
+  /*
    * Closes the date picker dropdown.
    */
   const handleDatePickerClose = () => {
@@ -115,10 +114,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     setIsDatePickerOpening(false);
   };
 
-  /**
+  /*
    * Handles Enter key press on the input to update the selected date.
    *
-   * @param {React.KeyboardEvent<HTMLInputElement>} event - The key press event.
    */
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -140,19 +138,17 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     }
   };
 
-  /**
+  /*
    * Returns the number of days in the displayed month.
    *
-   * @returns {number} The number of days in the displayed month.
    */
   const daysInMonth = () => {
     return new Date(displayedDate.getFullYear(), displayedDate.getMonth() + 1, 0).getDate();
   };
 
-  /**
+  /*
    * Returns the day of the week for the first day of the displayed month.
    *
-   * @returns {number} The day of the week (0-6, where 0 is Sunday).
    */
   const firstDayOfMonth = () => {
     return new Date(displayedDate.getFullYear(), displayedDate.getMonth(), 1).getDay();
@@ -167,24 +163,22 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     return new Date(displayedDate.getFullYear(), displayedDate.getMonth(), 0).getDate();
   };
 
-  /**
+  /*
    * Generates the calendar grid for the displayed month.
    *
-   * @param {function} handleClose - A function to close the date picker.
-   * @returns {JSX.Element[]} An array of JSX elements representing the calendar grid.
    */
   const generateCalendar = (handleClose: () => void) => {
     const days = daysInMonth();
     const firstDay = firstDayOfMonth();
     const lastDayPrevMonth = lastDayOfPrevMonth();
     const currentDate = new Date();
-  
-    const rows = [];
-    let currentRow = [];
-  
+
+    const rows: JSX.Element[] = [];
+    let currentRow: JSX.Element[] = [];
+
     // Adjust for Monday as the first day of the week
     const offset = firstDay === 0 ? 6 : firstDay;
-  
+
     // Fill the preceding days of the week with the last few days of the previous month
     for (let i = 0; i < offset; i++) {
       currentRow.push(
@@ -193,18 +187,18 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
         </td>
       );
     }
-  
+
     for (let day = 1; day <= days; day++) {
       const date = new Date(displayedDate.getFullYear(), displayedDate.getMonth(), day);
       let className = "";
-  
+
       const isCurrentDay =
         displayedDate.getFullYear() === currentDate.getFullYear() &&
         displayedDate.getMonth() === currentDate.getMonth() &&
         day === currentDate.getDate();
-  
+
       const isSelectedDay = selectedDate && selectedDate instanceof Date && !isNaN(selectedDate.getTime()) && date.getTime() === selectedDate.getTime();
-  
+
       if (isCurrentDay && (isSelectedDay || !selectedDate)) {
         className = "currentDay selectedDay";
       } else if (isCurrentDay) {
@@ -212,14 +206,14 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
       } else if (isSelectedDay) {
         className = "selectedDay";
       }
-  
+
       currentRow.push(
         <td
           key={day}
           onClick={() => {
             setInputDate(formatDate(date)); // Update inputDate with the selected date
             onChange(date); // Update the selected date here
-            setIsValidDate(true); //validate the date so as to remove the error message
+            setIsValidDate(true); // Validate the date to remove the error message
             handleClose(); // Close the date picker
           }}
           className={className}
@@ -227,13 +221,13 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
           {day}
         </td>
       );
-  
+
       if (currentRow.length === 7) {
         rows.push(<tr key={day}>{currentRow}</tr>);
         currentRow = [];
       }
     }
-  
+
     // Add days from the next month to complete the last row if needed
     while (currentRow.length < 7) {
       currentRow.push(
@@ -245,15 +239,13 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
         </td>
       );
     }
-  
+
     rows.push(<tr key={`row-next`}>{currentRow}</tr>);
     return rows;
   };
 
-  /**
+  /*
    * Handles month change in the custom select dropdown.
-   *
-   * @param {{ value: string | number; label: string } | null} selectedMonth - The selected month value.
    */
   const handleMonthChange = (selectedMonth: { value: string | number; label: string } | null) => {
     if (selectedMonth && !isNaN(Number(selectedMonth.value))) {
@@ -261,20 +253,18 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
         return new Date(currentDate.getFullYear(), Number(selectedMonth.value), 1);
       });
     }
-  };  
+  };
 
-/**
- * Handles year change in the custom select dropdown.
- *
- * @param {{ value: string | number; label: string } | null} selectedYear - The selected year value.
- */
-const handleYearChange = (selectedYear: { value: string | number; label: string } | null) => {
-  if (selectedYear && !isNaN(Number(selectedYear.value))) {
-    setDisplayedDate((currentDate) => {
-      return new Date(Number(selectedYear.value), currentDate.getMonth(), 1);
-    });
-  }
-};
+  /*
+   * Handles year change in the custom select dropdown.
+   */
+  const handleYearChange = (selectedYear: { value: string | number; label: string } | null) => {
+    if (selectedYear && !isNaN(Number(selectedYear.value))) {
+      setDisplayedDate((currentDate) => {
+        return new Date(Number(selectedYear.value), currentDate.getMonth(), 1);
+      });
+    }
+  };
 
   return (
     <div className="date-picker" ref={datePickerRef}>

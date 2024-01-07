@@ -2,53 +2,38 @@ import { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
 
 /**
- * Represents an option in the custom select component.
- *
- * @typedef {Object} OptionType
- * @property {string | number} value - The value of the option.
- * @property {string} label - The label displayed for the option.
+ * Represents the structure of an option for the select component.
  */
-interface OptionType {
+export interface OptionType {
   value: string | number;
   label: string;
 }
 
 /**
  * Props for the CustomSelect component.
- *
- * @typedef {Object} CustomSelectProps
- * @property {OptionType[]} items - An array of options to display in the select.
- * @property {object} [style] - Additional custom styles for the select component.
- * @property {string | number} [initialDefaultValue] - The initial default value for the select.
- * @property {(selectedOption: OptionType | null) => void} [onChange] - A function to be called when the selected option changes.
- * @property {OptionType | null} [value] - The currently selected option.
  */
-interface CustomSelectProps {
-  items: { value: string | number; label: string }[];
+export interface CustomSelectProps {
+  items: OptionType[];
   style?: object;
-  initialDefaultValue?: string | number; // Adjusted to string or number
-  onChange?: (selectedOption: { value: string | number; label: string } | null) => void;
-  value?: { value: string | number; label: string } | null;
+  initialDefaultValue?: string | number;
+  onChange?: (selectedOption: OptionType | null) => void;
+  value?: OptionType | null;
 }
 
 /**
- * Custom select component for displaying and selecting options.
+ * CustomSelect is a React functional component that renders a select dropdown.
+ * It allows users to choose from a list of options provided in 'items'.
  *
- * @param {CustomSelectProps} props - The component's props.
- * @returns {JSX.Element} The CustomSelect component.
+ * @param {CustomSelectProps} props - Props for the CustomSelect component.
+ * @returns {React.ReactElement} - The rendered custom select component.
  */
 const CustomSelect: React.FC<CustomSelectProps> = ({ items, style, initialDefaultValue, onChange, value }) => {
-
-  /**
-   * Finds the initial default value from the items array.
-   *
-   * @returns {OptionType | null} The initial default value.
-   */
+  // Finds the initial default value in the items list.
   const findInitialValue = () => {
     return items.find(item => item.value === initialDefaultValue) || null;
   };
 
-  const [defaultValue, setDefaultValue] = useState<{ value: string | number; label: string } | null>(findInitialValue());
+  const [defaultValue, setDefaultValue] = useState<OptionType | null>(findInitialValue());
 
   useEffect(() => {
     setDefaultValue(findInitialValue());
@@ -74,13 +59,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ items, style, initialDefaul
     ...style,
   };
 
-  /**
-   * Handles the selection change in the custom select.
-   *
-   * @param {OptionType | null} selectedOption - The selected option.
-   */
+  // Handles the change of the select value.
   const handleChange = (selectedOption: OptionType | null) => {
-    console.log(selectedOption);
     onChange?.(selectedOption);
   };
 
