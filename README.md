@@ -64,3 +64,7 @@ Set the selectedDate state to control the date picker and use the onChange handl
 ## Dependencies
 
 This component does not require any additional dependencies to be installed by the library user.
+
+## Dependencies
+
+Documentation is available in /out/global.html

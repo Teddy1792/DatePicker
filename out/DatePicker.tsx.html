@@ -1,4 +1,32 @@
-import React, { useEffect, useState, useRef } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: DatePicker.tsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: DatePicker.tsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight, faHouse } from '@fortawesome/free-solid-svg-icons';
 import CustomSelect from './CustomSelect';
@@ -25,12 +53,12 @@ interface DatePickerProps {
  * @param {DatePickerProps} props - The props for the DatePicker component.
  * @returns {React.ReactElement} The rendered DatePicker component.
  */
-const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onFormInputChange }) => {
-  const datePickerRef = useRef<HTMLDivElement>(null);
+const DatePicker: React.FC&lt;DatePickerProps> = ({ id, selectedDate, onChange, onFormInputChange }) => {
+  const datePickerRef = useRef&lt;HTMLDivElement>(null);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
+      if (datePickerRef.current &amp;&amp; !datePickerRef.current.contains(event.target as Node)) {
         setIsDatePickerOpen(false);
         handleDatePickerClose();
       }
@@ -62,9 +90,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
 
   /**
    * Handles input change, formats input value, and validates the date.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+   * @param {React.ChangeEvent&lt;HTMLInputElement>} event - The input change event.
    */
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent&lt;HTMLInputElement>) => {
     let inputValue = event.target.value;
 
     // Remove any non-digit characters except "-"
@@ -74,12 +102,12 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     const dashCount = (inputValue.match(/-/g) || []).length;
 
     // Add "-" after the year and month if they are typed
-    if (inputValue.length === 4 && dashCount < 1) {
+    if (inputValue.length === 4 &amp;&amp; dashCount &lt; 1) {
       inputValue = inputValue.substring(0, 4) + '-' + inputValue.substring(4);
-    } else if (inputValue.length === 7 && dashCount < 2) {
+    } else if (inputValue.length === 7 &amp;&amp; dashCount &lt; 2) {
       inputValue = inputValue.substring(0, 7) + '-' + inputValue.substring(7);
     }
-    if (inputValue.length <= 10) {
+    if (inputValue.length &lt;= 10) {
       setInputDate(inputValue);
       onFormInputChange('date', inputValue);
     }
@@ -87,7 +115,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
       const parsedDate = new Date(inputValue);
 
       // Check if the parsed date is not NaN and is in the ISO format
-      if (!isNaN(parsedDate.getTime()) && inputValue === parsedDate.toISOString().slice(0, 10)) {
+      if (!isNaN(parsedDate.getTime()) &amp;&amp; inputValue === parsedDate.toISOString().slice(0, 10)) {
         setIsValidDate(true);
         setInputDate(parsedDate.toISOString().slice(0, 10));
         onFormInputChange('date', parsedDate.toISOString().slice(0, 10));
@@ -112,7 +140,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
    */
   const handleDatePickerClose = () => {
     setIsDatePickerOpen(false);
-    if (!isDatePickerOpening && !isValidDate) {
+    if (!isDatePickerOpening &amp;&amp; !isValidDate) {
       setIsValidDate(true);
     }
     setIsDatePickerOpening(false);
@@ -120,9 +148,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
 
   /**
    * Handles Enter key press on the input to update the selected date.
-   * @param {React.KeyboardEvent<HTMLInputElement>} event - The key press event.
+   * @param {React.KeyboardEvent&lt;HTMLInputElement>} event - The key press event.
    */
-  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyDown = (event: React.KeyboardEvent&lt;HTMLInputElement>) => {
     if (event.key === 'Enter') {
       // Check if the input value matches the desired format (YYYY-MM-DD)
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -184,26 +212,26 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
     const offset = firstDay === 0 ? 6 : firstDay;
 
     // Fill the preceding days of the week with the last few days of the previous month
-    for (let i = 0; i < offset; i++) {
+    for (let i = 0; i &lt; offset; i++) {
       currentRow.push(
-        <td key={`prev-${i}`} className="inactive">
+        &lt;td key={`prev-${i}`} className="inactive">
           {lastDayPrevMonth - offset + i + 1}
-        </td>
+        &lt;/td>
       );
     }
 
-    for (let day = 1; day <= days; day++) {
+    for (let day = 1; day &lt;= days; day++) {
       const date = new Date(displayedDate.getFullYear(), displayedDate.getMonth(), day);
       let className = "";
 
       const isCurrentDay =
-        displayedDate.getFullYear() === currentDate.getFullYear() &&
-        displayedDate.getMonth() === currentDate.getMonth() &&
+        displayedDate.getFullYear() === currentDate.getFullYear() &amp;&amp;
+        displayedDate.getMonth() === currentDate.getMonth() &amp;&amp;
         day === currentDate.getDate();
 
-      const isSelectedDay = selectedDate && selectedDate instanceof Date && !isNaN(selectedDate.getTime()) && date.getTime() === selectedDate.getTime();
+      const isSelectedDay = selectedDate &amp;&amp; selectedDate instanceof Date &amp;&amp; !isNaN(selectedDate.getTime()) &amp;&amp; date.getTime() === selectedDate.getTime();
 
-      if (isCurrentDay && (isSelectedDay || !selectedDate)) {
+      if (isCurrentDay &amp;&amp; (isSelectedDay || !selectedDate)) {
         className = "currentDay selectedDay";
       } else if (isCurrentDay) {
         className = "currentDayUnselected";
@@ -212,7 +240,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
       }
 
       currentRow.push(
-        <td
+        &lt;td
           key={day}
           onClick={() => {
             setInputDate(formatDate(date)); // Update inputDate with the selected date
@@ -223,28 +251,28 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
           className={className}
         >
           {day}
-        </td>
+        &lt;/td>
       );
 
       if (currentRow.length === 7) {
-        rows.push(<tr key={day}>{currentRow}</tr>);
+        rows.push(&lt;tr key={day}>{currentRow}&lt;/tr>);
         currentRow = [];
       }
     }
 
     // Add days from the next month to complete the last row if needed
-    while (currentRow.length < 7) {
+    while (currentRow.length &lt; 7) {
       currentRow.push(
-        <td
+        &lt;td
           key={`next-${currentRow.length}`}
           className="inactive"
         >
           {currentRow.length + 1}
-        </td>
+        &lt;/td>
       );
     }
 
-    rows.push(<tr key={`row-next`}>{currentRow}</tr>);
+    rows.push(&lt;tr key={`row-next`}>{currentRow}&lt;/tr>);
     return rows;
   };
 
@@ -253,7 +281,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
    * @param {{ value: string | number, label: string } | null} selectedMonth - The selected month.
    */
   const handleMonthChange = (selectedMonth: { value: string | number; label: string } | null) => {
-    if (selectedMonth && !isNaN(Number(selectedMonth.value))) {
+    if (selectedMonth &amp;&amp; !isNaN(Number(selectedMonth.value))) {
       setDisplayedDate((currentDate) => {
         return new Date(currentDate.getFullYear(), Number(selectedMonth.value), 1);
       });
@@ -265,7 +293,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
    * @param {{ value: string | number, label: string } | null} selectedYear - The selected year.
    */
   const handleYearChange = (selectedYear: { value: string | number; label: string } | null) => {
-    if (selectedYear && !isNaN(Number(selectedYear.value))) {
+    if (selectedYear &amp;&amp; !isNaN(Number(selectedYear.value))) {
       setDisplayedDate((currentDate) => {
         return new Date(Number(selectedYear.value), currentDate.getMonth(), 1);
       });
@@ -273,8 +301,8 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
   };
 
   return (
-    <div className="date-picker" ref={datePickerRef}>
-      <input
+    &lt;div className="date-picker" ref={datePickerRef}>
+      &lt;input
         type="text"
         id={id}
         value={inputDate}
@@ -283,26 +311,26 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
         onClick={handleDatePickerOpen} // Handle opening the date picker
         placeholder="YYYY-MM-DD"
       />
-      {!isValidDate && (
-        <div className="error-message">
+      {!isValidDate &amp;&amp; (
+        &lt;div className="error-message">
           Please enter a valid date (YYYY-MM-DD format).
-        </div>
+        &lt;/div>
       )}
-      {isDatePickerOpen && (
-        <div className="date-picker-container">
-          <div className="date-picker-header">
-            <button type="button" onClick={() => setDisplayedDate(new Date(displayedDate.getFullYear(), displayedDate.getMonth() - 1, 1))}>
-              <FontAwesomeIcon icon={faCaretLeft} />
-            </button>
-            <button
+      {isDatePickerOpen &amp;&amp; (
+        &lt;div className="date-picker-container">
+          &lt;div className="date-picker-header">
+            &lt;button type="button" onClick={() => setDisplayedDate(new Date(displayedDate.getFullYear(), displayedDate.getMonth() - 1, 1))}>
+              &lt;FontAwesomeIcon icon={faCaretLeft} />
+            &lt;/button>
+            &lt;button
               type="button"
               onClick={() => {
                 setDisplayedDate(new Date());
               }}
             >
-              <FontAwesomeIcon icon={faHouse} />
-            </button>
-            <CustomSelect
+              &lt;FontAwesomeIcon icon={faHouse} />
+            &lt;/button>
+            &lt;CustomSelect
               items={Array.from({ length: 12 }, (_, index) => ({
                 value: index,
                 label: new Date(displayedDate.getFullYear(), index, 1).toLocaleString('default', { month: 'long' }),
@@ -310,7 +338,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
               value={{ value: displayedDate.getMonth(), label: new Date(displayedDate.getFullYear(), displayedDate.getMonth(), 1).toLocaleString('default', { month: 'long' }) }}
               onChange={handleMonthChange}
             />
-            <CustomSelect
+            &lt;CustomSelect
               items={Array.from({ length: 101 }, (_, index) => ({
                 value: 1930 + index,
                 label: `${1930 + index}`,
@@ -318,28 +346,51 @@ const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onF
               value={{ value: displayedDate.getFullYear(), label: `${displayedDate.getFullYear()}` }}
               onChange={handleYearChange}
             />
-            <button type="button" onClick={() => setDisplayedDate(new Date(displayedDate.getFullYear(), displayedDate.getMonth() + 1, 1))}>
-              <FontAwesomeIcon icon={faCaretRight} />
-            </button>
-          </div>
-          <table className="date-picker-calendar">
-            <thead>
-              <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-              </tr>
-            </thead>
-            <tbody>{generateCalendar(handleDatePickerClose)}</tbody>
-          </table>
-        </div>
+            &lt;button type="button" onClick={() => setDisplayedDate(new Date(displayedDate.getFullYear(), displayedDate.getMonth() + 1, 1))}>
+              &lt;FontAwesomeIcon icon={faCaretRight} />
+            &lt;/button>
+          &lt;/div>
+          &lt;table className="date-picker-calendar">
+            &lt;thead>
+              &lt;tr>
+                &lt;th>Sun&lt;/th>
+                &lt;th>Mon&lt;/th>
+                &lt;th>Tue&lt;/th>
+                &lt;th>Wed&lt;/th>
+                &lt;th>Thu&lt;/th>
+                &lt;th>Fri&lt;/th>
+                &lt;th>Sat&lt;/th>
+              &lt;/tr>
+            &lt;/thead>
+            &lt;tbody>{generateCalendar(handleDatePickerClose)}&lt;/tbody>
+          &lt;/table>
+        &lt;/div>
       )}
-    </div>
+    &lt;/div>
   );
 };
 
 export default DatePicker;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#CustomSelect">CustomSelect</a></li><li><a href="global.html#DatePicker">DatePicker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 08 2024 21:28:33 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
