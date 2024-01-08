@@ -1,8 +1,7 @@
 {
   "name": "datepickerfromscratch",
-  "version": "1.1.7",
+  "version": "1.1.21",
   "private": false,
-  "type": "module",
   "description": "The datepickerfromscratch is a custom date picker built for React applications using TypeScript.",
   "main": "./dist/datepickerfromscratch.umd.cjs",
   "module": "./dist/datepickerfromscratch.es.js",
@@ -29,7 +28,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
     "@babel/preset-typescript": "^7.23.3",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
@@ -37,17 +35,11 @@
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "jsdoc-babel": "^0.5.0",
-    "jsdoc-tsimport-plugin": "^1.0.5",
+    "jsdoc": "^4.0.2",
     "react-select": "^5.8.0",
     "sass": "^1.69.6",
-    "typedoc": "^0.25.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.8"
   },
@@ -68,5 +60,8 @@
     "UI",
     "picker"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "eslint-import-resolver-typescript": "^3.6.1"
+  }
 }

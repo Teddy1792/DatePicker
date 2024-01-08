@@ -1,18 +1,29 @@
 import { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
 
+
+
 /**
  * Represents the structure of an option for the select component.
+ * @typedef {Object} OptionType
+ * @property {string | number} value - The value of the option.
+ * @property {string} label - The label to display for the option.
  */
-export interface OptionType {
+interface OptionType {
   value: string | number;
   label: string;
 }
 
 /**
  * Props for the CustomSelect component.
+ * @typedef {Object} CustomSelectProps
+ * @property {OptionType[]} items - An array of options to display in the select dropdown.
+ * @property {object} [style] - Custom styles to apply to the select component.
+ * @property {string | number} [initialDefaultValue] - The initial default value for the select.
+ * @property {(selectedOption: OptionType | null) => void} [onChange] - A callback function to handle the select value change.
+ * @property {OptionType | null} [value] - The current selected value.
  */
-export interface CustomSelectProps {
+interface CustomSelectProps {
   items: OptionType[];
   style?: object;
   initialDefaultValue?: string | number;

@@ -4,7 +4,17 @@ import { faCaretLeft, faCaretRight, faHouse } from '@fortawesome/free-solid-svg-
 import CustomSelect from './CustomSelect';
 import './styles/DatePicker.scss';
 
-export interface DatePickerProps {
+
+/**
+ * Represents the props for the DatePicker component.
+ *
+ * @typedef {Object} DatePickerProps
+ * @property {string} id - The ID of the input element.
+ * @property {Date | null} selectedDate - The currently selected date.
+ * @property {(date: Date | null) => void} onChange - A function to be called when the selected date changes.
+ * @property {(fieldName: string, value: string) => void} onFormInputChange - A function to be called when the input value changes.
+ */
+interface DatePickerProps {
   id: string;
   selectedDate: Date | null;
   onChange: (date: Date | null) => void;
@@ -14,12 +24,8 @@ export interface DatePickerProps {
 /**
  * DatePicker component for selecting dates in "YYYY-MM-DD" format.
  *
- * @remarks
- * The component's props include:
- * - `id`: The ID of the input element.
- * - `selectedDate`: The currently selected date.
- * - `onChange`: A function to be called when the selected date changes.
- * - `onFormInputChange`: A function to be called when the input value changes.
+ * @param {DatePickerProps} props - The props for the DatePicker component.
+ * @returns {React.ReactElement} The rendered DatePicker component.
  */
 const DatePicker: React.FC<DatePickerProps> = ({ id, selectedDate, onChange, onFormInputChange }) => {
   const datePickerRef = useRef<HTMLDivElement>(null);
