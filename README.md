@@ -20,6 +20,13 @@ Import the DatePicker component and its stylesheet in your React application:
   import 'datepickerfromscratch/style.css';
 ```
 
+Then, in the same folder than the file where you call the component DatePicker, create a file named datepickerfromscratch.d.ts containing:
+```
+declare module 'datepickerfromscratch';
+```
+And you are set!
+
+
 Example usage in a component:
 
 ```

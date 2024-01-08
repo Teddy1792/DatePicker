@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
-
-
 
 /**
  * Represents the structure of an option for the select component.
